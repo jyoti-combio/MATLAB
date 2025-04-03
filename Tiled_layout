@@ -1,0 +1,31 @@
+######### Tiled Layout ###########################
+
+##########################################################################################################
+Tiled layout with 4 rows and 1 column, meaning the plots will be stacked vertically.
+It will give 4 vertically stacked plots (tiles), each displaying a simple line plot of one RMSD variable.
+
+##########################################################################################################
+
+
+#### Create a tiled layout with 4 rows and 1 column (4 tiles stacked vertically)
+tiledlayout(4, 1);
+
+###Plot 1: First tile in the layout (Single RMSD variable)
+nexttile; # Move to the first tile in the layout
+plot(x1, y1);  # Simple plot for the first RMSD variable
+title('RMSD1');  # Title for the first plot
+
+# Plot 2: Second tile in the layout (Single RMSD variable)
+nexttile;  
+plot(x2, y2);  
+title('RMSD2'); 
+
+# Plot 3: Third tile in the layout (Single RMSD variable)
+nexttile; 
+plot(x3, y3);  
+title('RMSD3');  
+
+# Plot 4: Fourth tile in the layout (Single RMSD variable)
+nexttile;  
+plot(x4, y4); 
+title('RMSD4');  

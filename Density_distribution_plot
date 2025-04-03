@@ -1,0 +1,21 @@
+######### Kernel Density Distribution Plot ###########################
+
+##################################################################################################
+It will generate a plot showing the probability distribution for the values 
+in the column 'VarName2'of table "rmsdC2". Here "VarName2" are RMSD values. 
+The x-axis will represent the values of VarName2, and the y-axis will show the estimated density
+
+##################################################################################################
+
+# Assuming rmsdC2 is your data table and 'VarName2' is the column of interest
+data = rmsdC2.VarName2;  # Extract the data from VarName2
+
+# Compute the kernel density estimate
+[f, xi] = ksdensity(data);  # f is the density estimate, xi are the corresponding values
+
+# Plot the kernel density estimate
+plot(xi, f, 'LineWidth', 2);  # Plot the density estimate
+title('Kernel Density Estimate of RMSD (VarName2)');  # Title
+xlabel('Value of VarName2');  # X-axis label
+ylabel('Density');  # Y-axis label
+grid on;  # Show grid

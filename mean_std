@@ -1,0 +1,50 @@
+######################## Bar Graph with Error ######################
+
+############ Calculating MEAN and STANDARD DEVIATION ########################
+
+#Calculate the mean of the data in the column 'VarName2' of the table 'rmsd'
+#The 'mean' function computes the average value of the data
+m = mean(rmsd.Varname2);
+
+#Calculate the standard deviation of the data in the column 'VarName2' of the table 'rmsd'
+#The 'std' function computes the spread of the data from the mean
+s = std(rmsd.Varname2);
+
+#Create a bar plot using the calculated mean values
+#'meanrmsdvalues' should contain the mean values to plot (ensure this is defined elsewhere in your code)
+bar(meanrmsdvalues);  # Plot the mean values as bars
+
+#Overlay the error bars on the bar plot
+#'errorbar' plots the error bars (calculated as the standard deviation) on top of the bars
+#'y' is the x-axis position for the error bars, and 'stdligrmsd.VarName2' contains the standard deviation values
+#The '.' argument is for the style of the error bars (dots)
+errorbar(y, stdligrmsd.VarName2, '.');  # Plot error bars on the bar graph
+
+
+########## Each Bar with Different Color ##############
+
+mean = meanligrmsd.VarName2;
+
+##The 'bar' function creates a bar plot for the data in the 'mean' array
+p = bar(mean);
+
+##Set the 'FaceColor' property of the bar plot to 'flat' for color customization
+##This allows us to specify different colors for individual bars
+p.FaceColor = 'flat';
+
+##Set the color of the first bar to a shade of purple [RGB: 0.5, 0, 0.5]
+p.CData(1,:) = [.5 0 .5];  #First bar color (purple)
+
+##Set the color of the second bar to a light purple [RGB: 0.91, 0.64, 0.96]
+p.CData(2,:) = [0.91 0.64 0.96];  #Second bar color (light purple)
+
+
+% You can add more lines like this to set colors for additional bars:
+p.CData(3,:) = [1 1 0];  % Third bar color (yellow)
+p.CData(4,:) = [0.2, 0.8, 0.2];  % Fourth bar color (green)
+p.CData(5,:) = [0.8, 0.2, 0.2];  % Fifth bar color (red)
+
+##'errorbar' adds error bars representing the standard deviation to each bar
+##'stdligrmsd.VarName2' contains the standard deviation values for the error bars
+##The '.' argument indicates the style for the error bars (dots)
+errorbar(mean, stdligrmsd.VarName2, '.');

@@ -1,0 +1,37 @@
+
+############################## RMSD STACKED PLOT #########################################################################
+This code generates a stacked plot in MATLAB that visualizes different groups of RMSD values stored in a table (rmsdapo). 
+The data for each group is stacked vertically, with each variable's values represented on the same axis
+##########################################################################################################################
+
+
+% Table containing all RMSD values in each column
+tbl = rmsdapo;   % rmsdapo is a table containing RMSD values, assumed to have multiple columns
+
+% Define variable groups for RMSD values
+var = {{'VarName212', 'VarName211', 'VarName210'}, ...   % Group 1 of RMSD values
+       {'VarName29', 'VarName28', 'VarName27', 'VarName26'}, ...   % Group 2 of RMSD values
+       {'VarName25', 'VarName24'}, ...   % Group 3 of RMSD values
+       {'VarName23', 'VarName22', 'VarName21'}};   % Group 4 of RMSD values
+
+% Create stacked plot based on the RMSD table and groupings
+s = stackedplot(tbl, var);   % The "stackedplot" function creates a stacked plot for specified variables
+
+% Customize the properties of the axes
+s.AxesProperties(2).YLimits = [0 0.5];   % Set the y-axis limits for the second group of variables
+ax = gca;   % Get current axes handle
+ax.FontSize = 14;   % Set the font size for the axis labels and tick marks
+
+% Hide the legend for the third axis (if not needed)
+s.AxesProperties(3).LegendVisible = 'off';   % Disable the legend for the third plot in the stack
+
+% Redefine the Y-axis limits for the second group (as done earlier)
+s.AxesProperties(2).YLimits = [0 0.5];   % Set y-axis limits again for second axis
+
+% Set font size again for clarity
+ax.FontSize = 14;
+
+% Redraw the stacked plot
+stackedplot(tbl, var);   % Replot the stacked plot with the defined properties
+
+

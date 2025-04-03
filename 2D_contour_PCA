@@ -1,0 +1,41 @@
+################################## 2D Contour Plot #############################
+
+#####################################################################################
+This will generate a 2D Contour plot for the PCA data instaed of 3D. Data is similar 
+to what is imported for the 3D plot. 
+
+#####################################################################################
+
+##Open the text file 'gibbs.txt' for reading
+ID = fopen('gibbs.txt');
+
+##Read the data from the file. Assuming the file has 3 columns of floating-point numbers
+##The textscan function reads the data into a cell array, with each column stored in a separate element.
+data = textscan(ID, '%f%f%f');
+
+##Close the text file after reading
+fclose(ID);
+
+##Extract the individual columns from the cell array 'data'. x, y, and z will hold the data from each column respectively.
+x = data{1};  # First column data 
+y = data{2};  # Second column data 
+z = data{3};  # Third column data 
+
+
+##Create a scattered interpolant based on the x, y, and z data
+F = scatteredInterpolant(x, y, z);
+
+xm = [min(x):max(diff(x)):max(x)];
+
+ym = [min(y):max(diff(y)):max(y)];
+
+##Create a mesh grid from the x and y vectors
+
+[Xm, Ym] = meshgrid(xm, ym);
+
+##F is used to find the corresponding z values at the mesh grid points Xm and Ym
+Z = F(Xm, Ym);
+
+##Create a filled contour plot with the interpolated Z values over the mesh grid
+##contourf creates filled contour plots, where the color represents the value of Z at each (X, Y) point
+contourf(Xm, Ym, Z);

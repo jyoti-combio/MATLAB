@@ -1,0 +1,49 @@
+########## Each Bar with Different Color ##############
+
+mean = meanligrmsd.VarName2;
+
+##The 'bar' function creates a bar plot for the data in the 'mean' array
+p = bar(mean);
+
+##Set the 'FaceColor' property of the bar plot to 'flat' for color customization
+##This allows us to specify different colors for individual bars
+p.FaceColor = 'flat';
+
+##Set the color of the first bar to a shade of purple [RGB: 0.5, 0, 0.5]
+p.CData(1,:) = [.5 0 .5];  #First bar color (purple)
+
+##Set the color of the second bar to a light purple [RGB: 0.91, 0.64, 0.96]
+p.CData(2,:) = [0.91 0.64 0.96];  #Second bar color (light purple)
+
+
+% You can add more lines like this to set colors for additional bars:
+p.CData(3,:) = [1 1 0];  % Third bar color (yellow)
+p.CData(4,:) = [0.2, 0.8, 0.2];  % Fourth bar color (green)
+p.CData(5,:) = [0.8, 0.2, 0.2];  % Fifth bar color (red)
+
+##'errorbar' adds error bars representing the standard deviation to each bar
+##'stdligrmsd.VarName2' contains the standard deviation values for the error bars
+##The '.' argument indicates the style for the error bars (dots)
+errorbar(mean, stdligrmsd.VarName2, '.');
+
+
+#################### Bar Graphs with Three Datasets Plotted Together ######################
+
+##The data is stored in three different tables: 'rmsfrun1pocketresidues', 'rmsfrun2pocketresidues', and 'rmsfrun3pocketresidues'.
+##Each table contains the data for 'VarName2', which is used for plotting the bar graph.
+
+bar([rmsfrun1pocketresidues.VarName2, rmsfrun2pocketresidues.VarName2, rmsfrun3pocketresidues.VarName2]);
+
+##The 'bar' function generates a bar plot of the combined data.The combined data consists of three groups of bars, one for each dataset.
+
+
+########Average#############
+
+A = (rmsfpocketresiduesR1.VarName2 + rmsfpocketresiduesR1.VarName21 + rmsfpocketresiduesR1.VarName22)/3
+B = (rmsfrun1pocketresidues.VarName2 + rmsfrun2pocketresidues.VarName2 + rmsfrun3pocketresidues.VarName2)/3
+
+
+
+#####Smoothing#####
+smooth_data=smooth(y)
+

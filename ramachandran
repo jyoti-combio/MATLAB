@@ -1,0 +1,47 @@
+
+######################### Generate Ramachandran Plot #########################
+
+
+1. Read the PDB file to extract 3D coordinates
+
+pdbFile = 'PDE5.pdb';  ## Change this to your PDB file
+structure = pdbread(pdbFile);
+
+2. Extract the chain you want to analyze (e.g., Chain A)
+
+chainID = 'A';  ## Specify the chain to be analyzed (can change to other chains if needed)
+pdbChain = extractChain(structure, chainID);
+
+3. Calculate phi (ϕ) and psi (ψ) angles
+##The dihedral angles are calculated using the atoms in the backbone.
+[phi, psi] = calcDihedralAngles(pdbChain);
+
+4. Plot the Ramachandran Plot
+Now that we have the phi and psi angles, we can plot them
+figure;
+scatter(phi, psi, 'filled');
+xlabel('Phi (ϕ) Angle (degrees)');
+ylabel('Psi (ψ) Angle (degrees)');
+title('Ramachandran Plot for Chain A');
+grid on;
+
+#### Add region coloring for allowed, disallowed, and favored regions
+
+hold on;
+###Define allowed regions
+allowed_phi = [-180, -60];  ###this can vary
+allowed_psi = [-60, 120];
+plot(allowed_phi, allowed_psi, 'g', 'LineWidth', 2);  ##Green for allowed regions
+
+axis([-180 180 -180 180]);  ## Set axis limits
+set(gca, 'xtick', -180:60:180);  ##Customize x-axis ticks
+set(gca, 'ytick', -180:60:180);  ##Customize y-axis ticks
+
+
+fprintf('Phi (ϕ) and Psi (ψ) angles calculated for Chain %s:\n', chainID);
+disp(table(phi, psi));  ##Show phi and psi angles for each residue
+
+############# Single command to generate ramachandran #############################
+
+PDBStruct = pdbread("PDE5.pdb")
+info = ramachandran("PDE5final.pdb", Chain="A", Regions=true, Glycine=true)  #### be sure to include the header line in the PDB.

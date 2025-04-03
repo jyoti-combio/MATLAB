@@ -1,0 +1,60 @@
+############################# PCA Analysis and 3D Surface Plot ###########################
+
+###################################################################################################
+Plotting a 3D surface plot using surfc from the output data generated from gromacs PCA analysis.
+
+###################################################################################################
+
+# Open the text file 'gibbs.txt' for reading
+ID = fopen('gibbs.txt');
+
+# Read the data from the file. Assuming the file has 3 columns of floating-point numbers
+# The textscan function reads the data into a cell array, with each column stored in a separate element.
+data = textscan(ID, '%f%f%f');
+
+# Close the text file after reading
+fclose(ID);
+
+# Extract the individual columns from the cell array 'data'
+# x, y, and z will hold the data from each column respectively
+x = data{1};  # First column data 
+y = data{2};  # Second column data 
+z = data{3};  # Third column data
+
+# Find the index of the minimum value in the x data 
+indminx = find(ismember(x, min(x)));
+
+# Find the index of the maximum value in the x data 
+indmaxx = find(ismember(x, max(x)));
+
+# Calculate the range for reshaping. This is the number of points between the min and max x values.
+reshape_range = indmaxx(1) - indminx(1) + 1;
+
+# Reshape the x, y, and z data into matrices. The reshape range determines the number of rows.
+# The '[]' means MATLAB will automatically calculate the number of columns based on the total number of elements.
+X = reshape(x, reshape_range, []);  # Reshaped x data
+Y = reshape(y, reshape_range, []);  # Reshaped y data
+Z = reshape(z, reshape_range, []);  # Reshaped z data
+
+# Plot a 3D surface plot with the reshaped data
+# 'surfc' generates a surface plot with contour lines below it
+# 'X', 'Y', and 'Z' are the data matrices
+surfc(X, Y, Z); 
+
+# Label the x-axis, y-axis, and z-axis
+xlabel('PC1');  # Label for the first principal component
+ylabel('PC2');  # Label for the second principal component
+zlabel('Gibbs free energy');  # Label for the Gibbs free energy
+
+# Add a colorbar to the plot, which indicates the scale of the surface plot
+colorbar;
+
+# Use interpolation for smoother shading between surface points
+shading interp;
+
+
+
+############other options##############
+
+%meshc(X, Y, Z), xlabel('RMSD to average'), ylabel('Radius to gyration'), zlabel('Gibbs free energy'), colorbar
+%contour3(X, Y, Z), xlabel('RMSD to average'), ylabel('Radius to gyration'), zlabel('Gibbs free energy'), colorbar
